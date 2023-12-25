@@ -28,36 +28,12 @@ namespace PowerCalculator.Application.UnitTests
             // Arrage
             var expected = new List<ProductionPlan>
             {
-                new ProductionPlan
-                {
-                    Name = "gasfiredbig1",
-                    Power = 380d
-                },
-                new ProductionPlan
-                {
-                    Name = "gasfiredbig2",
-                    Power = 100d
-                },
-                new ProductionPlan
-                {
-                    Name = "gasfiredsomewhatsmaller",
-                    Power = 0.0d
-                },
-                new ProductionPlan
-                {
-                    Name = "tj1",
-                    Power = 0.0d
-                },
-                new ProductionPlan
-                {
-                    Name = "windpark1",
-                    Power = 0.0d
-                },
-                new ProductionPlan
-                {
-                    Name = "windpark2",
-                    Power = 0.0d
-                }
+                new ProductionPlan("gasfiredbig1", 380d),
+                new ProductionPlan("gasfiredbig2", 100d),
+                new ProductionPlan("gasfiredsomewhatsmaller", 0d),
+                new ProductionPlan("tj1", 0d),
+                new ProductionPlan("windpark1", 0d),
+                new ProductionPlan("windpark2", 0d)
             };
 
             var powerPlantInfos = new List<PowerPlantInfo>
@@ -132,7 +108,7 @@ namespace PowerCalculator.Application.UnitTests
             // Assert
             result.Should().BeEquivalentTo(expected);
         }
-        
+
 
     }
 }

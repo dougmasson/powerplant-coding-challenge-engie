@@ -16,12 +16,12 @@ namespace PowerCalculator.Domain.Common
                                 .GetCustomAttributes(false).OfType<EnumMemberAttribute>()
                                 .FirstOrDefault();
 
-            if (attr == null)
+            if (attr is not null)
             {
-                return @enum.ToString();
+                return attr.Value!;
             }
 
-            return attr.Value!;
+            throw new ArgumentException("EnumMemberAttribute not found.", nameof(@enum));
         }
 
         /// <summary>
@@ -31,18 +31,19 @@ namespace PowerCalculator.Domain.Common
         /// <param name="value">Value of string will use to find EnumMemberAttribute.</param>
         /// <returns>Value of <typeparamref name="TEnum"/>.</returns>
         /// <exception cref="ArgumentException"></exception>
-        public static TEnum GetEnumFromMemberAttrValue<TEnum>(this string value) where TEnum : Enum
+        public static TEnum GetEnumFromMemberAttrValue<TEnum>(this string? value) where TEnum : Enum
         {
+            ArgumentNullException.ThrowIfNull(value);
+
             foreach (Enum enumItem in Enum.GetValues(typeof(TEnum)))
-            {
-                // Static method not allow to use StringComparer
-                if (enumItem.GetMemberAttrValue().Equals(value.ToLower()))
+            {            
+                if (string.Equals(enumItem.GetMemberAttrValue(), value, StringComparison.OrdinalIgnoreCase))
                 {
                     return (TEnum)enumItem;
                 }
             }
 
-            throw new ArgumentException("Not found.", nameof(value));
+            throw new ArgumentException("EnumMemberAttribute not found.", nameof(value));
         }
     }
 }

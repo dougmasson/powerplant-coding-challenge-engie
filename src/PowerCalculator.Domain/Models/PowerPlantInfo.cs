@@ -8,7 +8,7 @@ namespace PowerCalculator.Domain.Models
     [DebuggerDisplay("Name: {Name} | Type: {Type} | Pmin: {PowerMinimum.ToString(\"N2\")} | Pmax: {PowerMaximum.ToString(\"N2\")}")]
     public sealed record PowerPlantInfo
     {
-        public string Name { get; init; }
+        public string Name { get; init; } = string.Empty;
         public FuelType Type { get; init; }
         public double Efficiency { get; init; }
         public double PowerMinimum { get; init; }

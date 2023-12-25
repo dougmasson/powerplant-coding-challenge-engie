@@ -6,10 +6,10 @@ namespace PowerCalculator.Application.Models.Response
     public sealed record ErrorResponse
     {
         public int Status { get; set; }
-        public string Title { get; set; }
-        public string Detail { get; set; }
-        public string Type { get; set; }
-        public string Instance { get; set; }
-        public string ErrorCode { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string Detail { get; set; } = string.Empty;
+        public string Type { get; set; } = string.Empty;
+        public string Instance { get; set; } = string.Empty;
+        public string ErrorCode { get; set; } = string.Empty;
     }
 }

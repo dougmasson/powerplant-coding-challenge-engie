@@ -14,11 +14,11 @@
             httpContext.Response.OnStarting(state =>
             {
                 var httpContext = (HttpContext)state;
-                var correlationId = httpContext.Items["X-Correlation-Id"];
+                var correlationId = httpContext.Items["x-correlation-id"];
 
                 if (correlationId is not null)
                 {
-                    httpContext.Response.Headers.TryAdd("X-Correlation-Id", correlationId.ToString());
+                    httpContext.Response.Headers.TryAdd("x-correlation-id", correlationId.ToString());
                 }
 
                 return Task.CompletedTask;

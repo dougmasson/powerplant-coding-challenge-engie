@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Globalization;
 using System.Text.Json.Serialization;
 
 namespace PowerCalculator.WebApi.Configurations

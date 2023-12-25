@@ -11,7 +11,7 @@
 
         public async Task InvokeAsync(HttpContext httpContext)
         {
-            httpContext.Items["X-Correlation-Id"] = Guid.NewGuid().ToString();
+            httpContext.Items["x-correlation-id"] = Guid.NewGuid().ToString();
 
             await _next(httpContext);
         }

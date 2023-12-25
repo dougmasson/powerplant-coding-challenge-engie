@@ -12,7 +12,7 @@ namespace PowerCalculator.Domain.Models
         /// <summary>
         /// Name of plant.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         /// <summary>
         /// Type of fuel.

@@ -5,7 +5,7 @@ namespace PowerCalculator.WebApi.Extensions
     /// <summary>
     /// Configuratin of Middleware.
     /// </summary>
-    public static class MiddlewareServiceCollectionExtension
+    public static class MiddlewareStartupExtension
     {
         /// <summary>
         /// Include custom Middlewares.

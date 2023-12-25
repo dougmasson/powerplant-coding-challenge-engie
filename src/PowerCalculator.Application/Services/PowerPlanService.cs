@@ -7,7 +7,7 @@ using PowerCalculator.Domain.Models;
 
 namespace PowerCalculator.Application.Services
 {
-    public class PowerPlanService : IPowerPlanService
+    internal class PowerPlanService : IPowerPlanService
     {
         private readonly IPowerPlantFactory _powerPlantFactory;
         private readonly IConfigurationService _configurationService;
@@ -116,23 +116,7 @@ namespace PowerCalculator.Application.Services
                 throw new LoadExceedsMaxProductionException();
             }
 
-            // ReOrder powerplants by can be operate
-            var powerPlantsOrder = powerPlants.OrderByDescending(x => x.CanOperate)
-                                              .ThenBy(i => i.PowerCost)
-                                              .ThenBy(i => i.PowerMinimum);
-
-            var productionPlans = new List<ProductionPlan>();
-
-            foreach (var powerPlant in powerPlantsOrder)
-            {
-                productionPlans.Add(new ProductionPlan
-                {
-                    Name = powerPlant.Name,
-                    Power = Math.Round(powerPlant.PowerGeneratedForPlan, 1),
-                });
-            }
-
-            return productionPlans;
+            return BuildProductionPlan(powerPlants);
         }
 
         /// <summary>
@@ -162,6 +146,30 @@ namespace PowerCalculator.Application.Services
             remainingLoad -= powerPlant.PowerGeneratedForPlan;
 
             return Task.FromResult(remainingLoad);
+        }
+
+        /// <summary>
+        /// Create new instance of <see cref="ProductionPlan"/>.
+        /// </summary>
+        /// <param name="powerPlants"></param>
+        /// <returns>List of ProductionPlan created.</returns>
+        internal List<ProductionPlan> BuildProductionPlan(List<PowerPlant> powerPlants)
+        {
+            _logger.LogInformation("Create productionplan");
+
+            // ReOrder powerplants by those can be operated
+            var powerPlantsOrder = powerPlants.OrderByDescending(x => x.CanOperate)
+                                              .ThenBy(i => i.PowerCost)
+                                              .ThenBy(i => i.PowerMinimum);
+
+            var productionPlans = new List<ProductionPlan>();
+
+            foreach (var powerPlant in powerPlantsOrder)
+            {
+                productionPlans.Add(new ProductionPlan(powerPlant.Name, Math.Round(powerPlant.PowerGeneratedForPlan, 1)));
+            }
+
+            return productionPlans;
         }
 
         /// <summary>

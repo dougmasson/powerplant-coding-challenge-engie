@@ -9,18 +9,18 @@ namespace PowerCalculator.Application.Models.Request
     public sealed record PowerPlant
     {
         [JsonPropertyName("name")]
-        public string Name { get; init; }
+        public string? Name { get; init; }
 
         [JsonPropertyName("type")]
-        public string Type { get; set; }
+        public string? Type { get; init; }
 
         [JsonPropertyName("efficiency")]
-        public double Efficiency { get; init; }
+        public double? Efficiency { get; init; }
 
         [JsonPropertyName("pmin")]
-        public double PMin { get; init; }
+        public double? PMin { get; init; }
 
         [JsonPropertyName("pmax")]
-        public double PMax { get; init; }
+        public double? PMax { get; init; }
     }
 }

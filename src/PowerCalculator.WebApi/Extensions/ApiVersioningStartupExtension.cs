@@ -5,7 +5,7 @@ namespace PowerCalculator.WebApi.Extensions
     /// <summary>
     /// Configuration of ApiVersioning.
     /// </summary>
-    public static class ApiVersioningServiceCollectionExtension
+    public static class ApiVersioningStartupExtension
     {
         /// <summary>
         /// Configure Version of controllers.

@@ -38,7 +38,7 @@ namespace PowerCalculator.WebApi.Controllers
             var powerPlants = _mapper.Map<List<PowerPlantInfo>>(productionPlanInputDTO.PowerPlants);
             var fuelsInfo = _mapper.Map<FuelsInfo>(productionPlanInputDTO.Fuels);
 
-            var result = await _powerPlanService.CreateProductionPlanAsync(productionPlanInputDTO.Load, powerPlants, fuelsInfo);
+            var result = await _powerPlanService.CreateProductionPlanAsync(productionPlanInputDTO.Load!.Value, powerPlants, fuelsInfo);
             var productionPlan = _mapper.Map<List<ProductionPlanResponse>>(result);
 
             return Ok(productionPlan);

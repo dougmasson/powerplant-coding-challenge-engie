@@ -2,7 +2,7 @@
 {
     public class ProductionPlanBaseException : Exception
     {
-        public string ErrorCode { get; private set; }
+        public string ErrorCode { get; private set; } = string.Empty;
 
         public ProductionPlanBaseException() { }
 

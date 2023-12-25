@@ -4,7 +4,7 @@ using PowerCalculator.Domain.Models;
 
 namespace PowerCalculator.Application.Factory
 {
-    public class PowerPlantFactory : IPowerPlantFactory
+    internal class PowerPlantFactory : IPowerPlantFactory
     {
         private readonly IMapper _mapper;
 

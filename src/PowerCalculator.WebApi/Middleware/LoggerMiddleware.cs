@@ -13,7 +13,7 @@ namespace PowerCalculator.WebApi.Middleware
 
         public async Task InvokeAsync(HttpContext httpContext)
         {
-            var correlationId = httpContext.Items["X-Correlation-Id"];
+            var correlationId = httpContext.Items["x-correlation-id"];
 
             using (LogContext.PushProperty("CorellationId", correlationId))
             {

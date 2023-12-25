@@ -10,7 +10,7 @@ namespace PowerCalculator.Domain.Models
 
         public override void CalculatePowerCost(FuelsInfo fuelsInfo)
         {
-            PowerCost = fuelsInfo.KerosineCost / this.Efficiency;
+            PowerCost = fuelsInfo.KerosineCost / Efficiency;
         }
 
         public override void CalculatePowerCapacityToGenerate(FuelsInfo fuelsInfo)

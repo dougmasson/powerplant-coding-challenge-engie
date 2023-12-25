@@ -9,9 +9,9 @@ namespace PowerCalculator.Application.Models.Response
     public sealed record ProductionPlanResponse
     {
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string Name { get; init; } = string.Empty;
 
         [JsonPropertyName("p")]
-        public double Power { get; set; }
+        public double Power { get; init; }
     }
 }

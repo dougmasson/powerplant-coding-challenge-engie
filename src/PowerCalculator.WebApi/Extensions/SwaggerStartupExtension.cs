@@ -8,7 +8,7 @@ namespace PowerCalculator.WebApi.Extensions
     /// <summary>
     /// Configuratin of Swagger.
     /// </summary>
-    public static class SwaggerServiceCollectionExtension
+    public static class SwaggerStartupExtension
     {
         /// <summary>
         /// Configure swagger in <see cref="IServiceCollection"/>.

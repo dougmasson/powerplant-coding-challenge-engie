@@ -5,7 +5,7 @@ namespace PowerCalculator.WebApi.Extensions
     /// <summary>
     /// Configuratin of Serilog.
     /// </summary>
-    public static class SerilogServiceCollectionExtension
+    public static class SerilogStartupExtension
     {
         /// <summary>
         /// Use Serilog.
@@ -22,8 +22,15 @@ namespace PowerCalculator.WebApi.Extensions
         /// <param name="app">The application builder.</param>
         public static void UseSerilogRequest(this IApplicationBuilder app)
         {
-            //Add support to logging request with SERILOG
-            app.UseSerilogRequestLogging();
+            app.UseSerilogRequestLogging(options =>
+            {
+                options.MessageTemplate = "{RequestMethod} {RequestPath} responded {StatusCode} in {Elapsed:0.0000} ms";
+
+                options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
+                {
+                    diagnosticContext.Set("CorellationId", httpContext.Items["x-correlation-id"]);
+                };
+            });
         }
     }
 }

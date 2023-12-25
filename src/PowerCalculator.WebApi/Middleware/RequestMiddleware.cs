@@ -11,9 +11,9 @@
 
         public async Task InvokeAsync(HttpContext httpContext)
         {
-            var correlationId = httpContext.Items["X-Correlation-Id"];
+            var correlationId = httpContext.Items["x-correlation-id"];
 
-            httpContext.Request.Headers.TryAdd("X-Correlation-Id", correlationId.ToString());
+            httpContext.Request.Headers.TryAdd("x-correlation-id", correlationId!.ToString());
 
             await _next(httpContext);
         }

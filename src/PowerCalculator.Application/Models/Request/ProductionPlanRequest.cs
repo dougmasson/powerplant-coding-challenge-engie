@@ -7,12 +7,12 @@ namespace PowerCalculator.Application.Models.Request
     public sealed record ProductionPlanRequest
     {
         [JsonPropertyName("load")]
-        public double Load { get; init; }
+        public double? Load { get; init; }
 
         [JsonPropertyName("fuels")]
-        public Fuels Fuels { get; init; }
+        public Fuels Fuels { get; init; } = null!;
 
         [JsonPropertyName("powerplants")]
-        public List<PowerPlant> PowerPlants { get; init; }
+        public List<PowerPlant> PowerPlants { get; init; } = null!;
     }
 }

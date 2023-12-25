@@ -6,7 +6,7 @@ namespace PowerCalculator.WebApi.Extensions
     /// <summary>
     /// Configuration of compression for response.
     /// </summary>
-    public static class CompressionsServiceCollectionExtension
+    public static class CompressionsStartupExtension
     {
         /// <summary>
         /// Add option to compression Response, reduce size.
