@@ -1,8 +1,10 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
+using PowerCalculator.Application.Models.Response;
 using PowerCalculator.Application.Validator;
 using PowerCalculator.Domain.Models;
+using System.Net;
 
 namespace PowerCalculator.WebApi.Extensions
 {
@@ -24,18 +26,31 @@ namespace PowerCalculator.WebApi.Extensions
 
             services.Configure<ApiBehaviorOptions>(options =>
             {
-                options.InvalidModelStateResponseFactory = actionContext =>
+                options.InvalidModelStateResponseFactory = context =>
                 {
+                    var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Program>>();
+
+                    // Perform logging here.
+
+
                     var errorDetails = new List<ErrorDetail>();
 
-                    var invalidItems = actionContext.ModelState.Where(x => x.Value!.Errors.Any());
+                    var invalidItems = context.ModelState.Where(x => x.Value!.Errors.Any());
 
                     foreach (var item in invalidItems)
                     {
                         errorDetails.Add(new ErrorDetail(item.Key, item.Value!.Errors[0].ErrorMessage));
                     }
 
-                    throw new Domain.Exceptions.ValidationException(errorDetails);
+                    return new BadRequestObjectResult(new ErrorResponse
+                    {
+                        Status = (int)HttpStatusCode.BadRequest,
+                        Type = "ValidationException",
+                        Title = "One or more validation errors occurred.",
+                        Instance = $"{context.HttpContext.Request.Method} {context.HttpContext.Request.Path}",
+                        ErrorCode = "0000",
+                        Erros = errorDetails
+                    });
                 };
             });
 

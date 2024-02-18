@@ -4,12 +4,12 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace PowerCalculator.Domain.Models
 {
+    /// <summary>
+    /// Powerplant base to generate the demanded load.
+    /// </summary>
     [ExcludeFromCodeCoverage]
     [DebuggerDisplay("Name: {Name} | Type: {Type} | CanOperate: {CanOperate} | PowerCapacityToGenerate: " +
                      "{PowerCapacityToGenerate.ToString(\"N2\")} | PowerToGenerateForPlan: {PowerToGenerateForPlan.ToString(\"N2\")}")]
-    /// <summary>
-    /// PowerPlant base.
-    /// </summary>
     public abstract class PowerPlant
     {
         /// <summary>

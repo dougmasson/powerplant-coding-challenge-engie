@@ -14,7 +14,6 @@ namespace PowerCalculator.WebApi.Extensions
         /// <returns>Service collection configured.</returns>
         public static IServiceCollection AddExceptionHandlers(this IServiceCollection services)
         {
-            services.AddExceptionHandler<ValidationExceptionHandler>();
             services.AddExceptionHandler<ProductionPlanExceptionHandler>();
             services.AddExceptionHandler<GlobalExceptionHandler>();
 

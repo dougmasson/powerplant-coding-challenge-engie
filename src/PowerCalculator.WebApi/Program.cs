@@ -5,9 +5,6 @@ using PowerCalculator.WebApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ExceptionHandler
-builder.Services.AddExceptionHandlers();
-
 // Layers of Clean Architecture
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();
@@ -25,10 +22,9 @@ builder.Services.AddResponseCompressionOptions();
 
 builder.Services.AddSwaggerConfiguration();
 
+builder.Services.AddExceptionHandlers();
 
 var app = builder.Build();
-
-app.UseExceptionHandler();
 
 app.UseSerilogRequest();
 
@@ -39,6 +35,8 @@ app.UseCustomMiddleware();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseExceptionHandler();
 
 app.Run();
 

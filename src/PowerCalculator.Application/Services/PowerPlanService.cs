@@ -33,11 +33,11 @@ namespace PowerCalculator.Application.Services
         }
 
         /// <summary>
-        /// Create a powerPlant based on informations of <see cref="PowerPlantInfo"/> and <see cref="FuelsInfo"/>
+        /// Create powerplants based on informations of <see cref="PowerPlantInfo"/> and <see cref="FuelsInfo"/>.
         /// </summary>
-        /// <param name="powerPlantInfos"></param>
-        /// <param name="fuelsInfo"></param>
-        /// <returns><see cref="List<powerPlant>"/> to compute production plan.</returns>
+        /// <param name="powerPlantInfos">Information of powerplant.</param>
+        /// <param name="fuelsInfo">Information of the fuels of each powerplant.</param>
+        /// <returns>List of <see cref="PowerPlant"/> to compute production plan.</returns>
         internal async Task<List<PowerPlant>> CreatePowerPlantAsync(List<PowerPlantInfo> powerPlantInfos, FuelsInfo fuelsInfo)
         {
             _logger.LogInformation("Create powerplant");
@@ -58,7 +58,7 @@ namespace PowerCalculator.Application.Services
         /// <summary>
         /// Ranking available sources of energy based on ascending order of price and power able to generate.
         /// </summary>
-        /// <param name="powerPlants"></param>
+        /// <param name="powerPlants">List of <see cref="PowerPlant"/> at disposal to generate the power.</param>
         /// <returns>Ordered list.</returns>
         internal void SortByMeritOrder(ref List<PowerPlant> powerPlants)
         {
@@ -79,8 +79,8 @@ namespace PowerCalculator.Application.Services
         /// <summary>
         /// Calculate how much energy needs to produce for each powerplant.
         /// </summary>
-        /// <param name="powerPlants"></param>
-        /// <param name="load"></param>
+        /// <param name="powerPlants">List of <see cref="PowerPlant"/> at disposal to generate the power.</param>
+        /// <param name="load">Amount of energy that need to be generated.</param>
         internal async Task<List<ProductionPlan>> ComputeProductionPlanAsync(List<PowerPlant> powerPlants, double load)
         {
             _logger.LogInformation("Compute production plan");
@@ -89,11 +89,11 @@ namespace PowerCalculator.Application.Services
 
             for (int i = 0; i < powerPlants.Count; i++)
             {
-                _logger.LogInformation($"Powerplan: {powerPlants[i]}");
+                _logger.LogInformation($"Powerplan: {powerPlants[i].Name}");
 
-                bool isTooMuchPowerToProduced = remainingLoad < powerPlants[i].PowerMinimum;
+                bool existsMinimumPowerEnough = remainingLoad >= powerPlants[i].PowerMinimum;
 
-                if (isTooMuchPowerToProduced)
+                if (!existsMinimumPowerEnough)
                 {
                     var newRemainingLoad = await RedistributePowerPlanGeneratedAsync(powerPlants, remainingLoad, i);
 
@@ -154,9 +154,9 @@ namespace PowerCalculator.Application.Services
         }
 
         /// <summary>
-        /// Create new instance of <see cref="ProductionPlan"/>.
+        /// Create new instance of <see cref="ProductionPlan"/> based on if powerplant can operate.
         /// </summary>
-        /// <param name="powerPlants"></param>
+        /// <param name="powerPlants">List of <see cref="PowerPlant"/> at disposal to generate the power.</param>
         /// <returns>List of ProductionPlan created.</returns>
         private List<ProductionPlan> BuildProductionPlan(List<PowerPlant> powerPlants)
         {
@@ -180,8 +180,8 @@ namespace PowerCalculator.Application.Services
         /// <summary>
         /// Redistribute power generation plan to able current <see cref="PowerPlant"/> has minimum power to operate.
         /// </summary>
-        /// <param name="powerPlants"></param>
-        /// <param name="remainingLoad"></param>
+        /// <param name="powerPlants">List of <see cref="PowerPlant"/> at disposal to generate the power.</param>
+        /// <param name="remainingLoad">Remaining Load.</param>
         /// <param name="indexCurrentPowerPlant">Index of current <see cref="PowerPlant"/>.</param>
         /// <returns>Value of <c>remainingLoad</c> after recalcule.</returns>
         private Task<double> RedistributePowerPlanGeneratedAsync(List<PowerPlant> powerPlants, double remainingLoad, int indexCurrentPowerPlant)
@@ -229,7 +229,7 @@ namespace PowerCalculator.Application.Services
         /// <summary>
         /// Rollback of power was redistributed to the current <see cref="PowerPlant"/> has minimum power to operate.
         /// </summary>
-        /// <param name="powerPlants"></param>
+        /// <param name="powerPlants">List of <see cref="PowerPlant"/> at disposal to generate the power.</param>
         /// <param name="i">Index of current <see cref="PowerPlant"/>.</param>
         private void RollbackRedistributePowerPlanGenerated(List<PowerPlant> powerPlants, int i)
         {
