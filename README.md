@@ -19,8 +19,11 @@ Sum of the power produced by all the powerplants together should be equal the lo
 
 - .NET 8
 - Visual Studio 2022 version 17.8.0 or higher (recommend version 17.9.0)
-- Postman
 - Docker
+
+### Optional
+
+- Postman
 
 ## How to build and launch the API
 
@@ -87,7 +90,7 @@ Furthermore, manually open your preferred browser and use the previously mention
 ### Postman
 
 To get started with the Postman collections you will need to download the Postman tool from [getpostman.com/postman](https://www.getpostman.com/postman). 
-With Postman installed, you can create requests or download the file of collection with 3 playloads created.
+With Postman installed, you can create requests or download the file of collection with 3 payloads and also some more examples.
 
 [Download file](ProductionPlan.postman_collection.json)
 
