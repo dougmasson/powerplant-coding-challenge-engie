@@ -8,7 +8,7 @@
 	},
 	"item": [
 		{
-			"name": "Playload examples",
+			"name": "Payload examples",
 			"item": [
 				{
 					"name": "Payload 1",
@@ -103,7 +103,7 @@
 			]
 		},
 		{
-			"name": "Validate Fiels",
+			"name": "Validate Fields",
 			"request": {
 				"method": "POST",
 				"header": [],
