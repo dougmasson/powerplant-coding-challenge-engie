@@ -1,0 +1,1 @@
+﻿[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("PowerCalculator.Infrastructure.UnitTests")]
